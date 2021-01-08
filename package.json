@@ -14,7 +14,7 @@
   },
   "scripts": {
     "help": "node . --help",
-    "roomgen": "node . roomgen",
+    "rooms": "node . rooms",
     "start": "node . $( [[ $npm_config_port ]] && echo \"--port $npm_config_port\" || [[ $npm_package_config_port ]] && echo \"--port $npm_package_config_port\" )",
     "watch": "npm-watch start"
   },

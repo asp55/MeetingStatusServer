@@ -1,0 +1,40 @@
+{
+  "name": "meetingstatusserver",
+  "version": "1.0.0",
+  "description": "A seperate standalone web socket server for WatchForMeeting",
+  "main": "bin/main.js",
+  "bin": {
+    "MeetingStatusServer": "./bin/main.js"
+  },
+  "config": {
+    "port": 8080
+  },
+  "watch": {
+    "start": "*.js"
+  },
+  "scripts": {
+    "help": "node . --help",
+    "roomgen": "node . roomgen",
+    "start": "node . $( [[ $npm_config_port ]] && echo \"--port $npm_config_port\" || [[ $npm_package_config_port ]] && echo \"--port $npm_package_config_port\" )",
+    "watch": "npm-watch start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asp55/MeetingStatusServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asp55/MeetingStatusServer/issues"
+  },
+  "homepage": "https://github.com/asp55/MeetingStatusServer#readme",
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "ws": "^7.4.1",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.7.0"
+  }
+}

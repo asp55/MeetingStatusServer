@@ -1,6 +1,4 @@
-const fs = require('fs');
-const uuid = require("uuid");
-const roomsFile = "private/rooms.json";
+const rooms = require("../../scripts/rooms");
 
 exports.command = 'rooms <command>';
 
@@ -21,17 +19,15 @@ exports.builder = (yargs) => {
       return yargs;
     }, 
     function handler(argv) {
-
-      let rooms = JSON.parse(fs.readFileSync(roomsFile));
-      let roomKeys = Object.keys(rooms);
-
-      const key = uuid.v5(argv.name, "36873bda-ad21-4655-92fd-c71be19a4882");
-      rooms[key] = argv.name;
-      roomKeys.push(key);
-
-      fs.writeFileSync(roomsFile, JSON.stringify(rooms, null, 2));
-      console.log(key);
-      process.exit(0);
+      try {
+        const key = rooms.add(argv.name);
+        console.log(key);
+        process.exit(0);
+      }
+      catch(err) {
+        console.error(err);
+        process.exit(1);
+      }
     }
   )
   .command(
@@ -40,12 +36,9 @@ exports.builder = (yargs) => {
     function options(yargs) { 
     }, 
     function handler(argv) {
-      let rooms = JSON.parse(fs.readFileSync(roomsFile));
-      let roomKeys = Object.keys(rooms);
-
-      roomKeys.forEach(key=>{
-        console.log(`${key}\t${rooms[key]}`);
-      })
+      rooms.keys.forEach(key=>{
+        console.log(`${key}\t${rooms.name(key)}`);
+      });
       process.exit(0);
     }
   )
@@ -62,20 +55,12 @@ exports.builder = (yargs) => {
       return yargs;
     },
     function handler(argv) {
-      let rooms = JSON.parse(fs.readFileSync(roomsFile));
-      let roomKeys = Object.keys(rooms);
-
-      const key = argv.key;
-      if(roomKeys.includes(key)) {
-        const name = rooms[key];
-        delete rooms[key];
-        roomKeys.splice(roomKeys.indexOf(key),1);
-        console.log(`${key} (${name}) removed`);
-        fs.writeFileSync(roomsFile, JSON.stringify(rooms, null, 2));
+      try {
+        console.log(rooms.remove(argv.key));
         process.exit(0);
       }
-      else {
-        console.error(`${key} does not exist`);
+      catch(err) {
+        console.error(err);
         process.exit(1);
       }
     }

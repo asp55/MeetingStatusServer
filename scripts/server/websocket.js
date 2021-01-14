@@ -3,8 +3,18 @@ const uuid = require("uuid");
 const rooms = require("../rooms");
 
 let roomInfo = {};
-rooms.keys.forEach(key=>{roomInfo[key]={name:rooms.name(key), status:"offline"}});
-rooms.watch.on("change", ()=>{broadcastToMonitors(initializationMessage())});
+
+function initializeRooms() {
+    rooms.keys.forEach(key=>{roomInfo[key]={name:rooms.name(key), status:roomInfo[key]?roomInfo[key].status:"offline"}}); 
+}
+
+initializeRooms();
+
+rooms.watch.on("change", ()=>{
+    console.log("Rooms Updated, re-init"); 
+    initializeRooms();
+    broadcastToMonitors(initializationMessage());
+});
  
 const WebSocketServer = new WebSocket.Server({ noServer: true });
 

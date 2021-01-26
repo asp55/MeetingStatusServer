@@ -79,6 +79,26 @@ WebSocketServer.on('connection', ws => {
 
             sendUpdateToMonitors(ws.key);
         }
+        else if(action === "add room") {
+            try {
+                rooms.add(message.name);
+                ws.send(JSON.stringify({action:"add room", name:message.name, success:true}));
+            }
+            catch(e) {
+                ws.send(JSON.stringify({action:"add room", name:message.name, error:e}));
+                console.log(e);
+            }
+        }
+        else if(action === "remove room") {
+            try {
+                rooms.remove(key);
+                ws.send(JSON.stringify({action:"remove room", key:key, success:true}));
+            }
+            catch(e) {
+                ws.send(JSON.stringify({action:"remove room", key:key, error:e}));
+                console.log(e);
+            }
+        }
     });
     ws.on('close', (code, reason) => {
         if(ws.info.type === "room" && ws.key) {

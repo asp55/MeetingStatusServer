@@ -30,7 +30,7 @@ class Rooms {
             return newkey;
         }
         else {
-            throw(`A room named "${name}" already exists`);
+            throw("already exists");
         }
     }
 
@@ -43,7 +43,7 @@ class Rooms {
             return `${key} (${name}) removed`;
         }
         else {
-            throw(`${key} does not exist`);
+            throw("does not exist");
         }
     }
 

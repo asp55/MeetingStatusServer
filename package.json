@@ -15,7 +15,7 @@
   "scripts": {
     "help": "node . --help",
     "rooms": "node . rooms",
-    "start": "node . --port ${npm_config_port:-${npm_package_config_port:-8080}}",
+        "start": "node . --port ${npm_config_port:-${npm_package_config_port:-8080}}",
     "watch": "npm-watch start"
   },
   "repository": {

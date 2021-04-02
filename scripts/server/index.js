@@ -71,7 +71,19 @@ server.on('upgrade', function upgrade(request, socket, head) {
 });
 
 
-exports.start = function(port) {  
-    console.log(`${Date()}: Server started`);
+exports.start = function(port = (process.env.PORT || process.env.npm_config_port || process.env.npm_package_config_port || 8080)) {
+
+    server.once('error', function(err) {
+        if (err.code === 'EADDRINUSE') {
+            // port is currently in use
+            console.error(`${Date()}: Could not start server: port:${port} is already in use. `);
+            process.exit(1);
+        }
+    });
+
+    server.once('listening', function() {
+        console.log(`${Date()}: Server started on port:${port}`);        
+    });
+
     server.listen(port);
 }

@@ -7,6 +7,11 @@ const roomsFile = "scripts/rooms/rooms.json";
 
 class Rooms {
     constructor() {
+
+        if(!fs.existsSync(roomsFile)) {
+            fs.writeFileSync(roomsFile, JSON.stringify({}, null, 2));
+        } 
+
         const loadVals = ()=>{
             this.rooms = JSON.parse(fs.readFileSync(roomsFile));
             this.keys = Object.keys(this.rooms);

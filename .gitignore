@@ -4,5 +4,7 @@
 node_modules/
 
 # VS Studio Code Workspace
-
 .vscode/
+
+# Rooms.json - Should be unique per server
+scripts/rooms/rooms.json

@@ -1,6 +1,8 @@
 # MeetingStatusServer
 A separate standalone websocket server for [WatchForMeeting](https://github.com/asp55/WatchForMeeting)
 
+![Demo Video Showing The Front End in Action: 2 rooms toggling between free/busy, with their mics and video turning on and off](https://github.com/asp55/MeetingStatusServer/blob/main/.documentation/demo.gif?raw=true)
+
 # Installation
 Clone this repo and run
 ```
